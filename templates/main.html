@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solar System</title>
+  <link rel="stylesheet" href="../static/css/main.css" />
+</head>
+
+<body>
+  <div id="video-container">
+    <video autoplay muted loop id="background-video">
+        <source src="../static/vid/space.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="dialogue">
+      <h6>Logged in as {{ user['username'] }}</h6><br>
+      <h2>Welcome {{ user['firstname'] }}!</h2>
+      <p>Explore the solar system!<br>Click/hover on a planet<br>to get started</p><br>
+      <a href="/logout" style="color: white; font-weight: 600;">Logout</a>&nbsp;&nbsp;&nbsp;<a href="/user/{{user['username']}}" style="color: white; font-weight: 600;">Profile</a>
+    </div>
+  <div class="wrapper">
+    <div class="neptune-container">
+      <a href="/planet/neptune"><img src="../static/img/planets/neptune.png" alt="Neptune"/></a>
+    </div>
+    <div class="uranus-container">
+      <a href="/planet/uranus"><img src="../static/img/planets/uranus.png" alt="Uranus"/></a>
+    </div>
+    <div class="saturn-container">
+      <a href="/planet/saturn"><img src="../static/img/planets/saturn.png" alt="Saturn"/></a>
+    </div>
+    <div class="jupiter-container">
+      <a href="/planet/jupiter"><img src="../static/img/planets/jupiter.png" alt="Jupiter"/></a>
+    </div>
+    <div class="mars-container">
+      <a href="/planet/mars"><img src="../static/img/planets/mars.png" alt="Mars"/></a>
+    </div>
+    <div class="earth-container">
+      <a href="/planet/earth"><img src="../static/img/planets/earth.png" alt="Earth"/></a>
+    </div>
+    <div class="venus-container">
+      <a href="/planet/venus"><img src="../static/img/planets/venus.png" alt="Venus"/></a>
+    </div>
+    <div class="mercury-container">
+      <a href="/planet/mercury"><img src="../static/img/planets/mercury.png" alt="Mercury"/></a>
+    </div>
+    <div class="sun-container">
+      <a href="#"><img src="../static/img/planets/sun.png" alt="Sun"/>
+    </div>
+  </div>
+  <div id="popup-container" class="popup-container"></div>
+  </div>
+
+<script>
+  const planetsData = [
+    {
+      "name": "Mercury",
+      "description": "Mercury, the smallest planet in our solar system, dances closest to the Sun, facing extremes of heat and cold. Its surface is a rugged, cratered landscape, hosting the expansive Caloris Basin—a giant impact scar. With temperatures swinging between scorching 800 degrees Fahrenheit and chilling -290 degrees Fahrenheit, Mercury boasts some of the most dramatic temperature variations in the solar system. Lobate scarps, towering cliffs formed by tectonic forces, add a touch of celestial drama to its rocky terrain. "
+    },
+    {
+      "name": "Venus",
+      "description": "Venus, Earth's fiery sister, is a scorching beauty with a thick, toxic atmosphere dominated by sulfuric acid clouds. Its surface is a volcanic canvas, featuring vast plains and towering mountains. Unrelenting surface temperatures, hotter than Mercury, make Venus the hottest planet in our solar system. Its slow, retrograde rotation adds to the planetary enigma, with days lasting longer than its years. Venus, often shrouded in mystery, remains a tantalizing target for scientific exploration."
+    },
+    {
+      "name": "Earth",
+      "description": "Earth, our vibrant blue oasis, teems with life amid diverse landscapes. A delicate balance of oceans, continents, and an atmosphere rich in oxygen sustains a myriad of ecosystems. Home to a kaleidoscope of cultures, Earth is the only known celestial body where humanity has flourished. Its dynamic climate, shaped by intricate processes, embodies the beauty and complexity of our interconnected planet. As we navigate the cosmos, Earth stands as a precious jewel, urging stewardship for the flourishing tapestry of life it hosts."
+    },
+    {
+      "name": "Mars",
+      "description": "Mars, the Red Planet, beckons with its rusty allure and a landscape marked by vast deserts, towering volcanoes, and a canyon system that dwarfs the Grand Canyon. Dusty storms sweep across its barren surface, concealing its mysteries. With polar ice caps and a history of liquid water, Mars fuels dreams of past or present life. Recent missions, like NASA's Perseverance rover, explore its ancient lakebeds, seeking clues to the planet's enigmatic past. As a potential future destination for human exploration, Mars captivates our imagination with the promise of unlocking the secrets of our planetary neighbor."
+    },
+    {
+      "name": "Jupiter",
+      "description": "Jupiter, the gas giant of our solar system, is a colossal swirl of mesmerizing bands and the iconic Great Red Spot—a colossal storm raging for centuries. Its immense size dwarfs all other planets combined, and it plays the role of a cosmic vacuum, deflecting asteroids and comets away from the inner solar system. With a composition predominantly of hydrogen and helium, Jupiter lacks a solid surface, making it a colossal ball of turbulent gases. Moons galore, including the four largest known as the Galilean moons, orbit this mighty planet, adding to its celestial grandeur."
+    },
+    {
+      "name": "Saturn",
+      "description": "Saturn, the ringed wonder of our solar system, boasts a dazzling system of icy rings that captivates observers from afar. These iconic rings, made up of countless particles, create a celestial spectacle and make Saturn a celestial jewel. Beneath its stunning appearance, Saturn is a gas giant with a composition similar to Jupiter, featuring a swirling atmosphere adorned with complex cloud patterns. Its moon Titan, shrouded in a thick atmosphere, beckons with the possibility of liquid methane lakes. As one of the most visually striking planets, Saturn continues to enchant astronomers and space enthusiasts alike."
+    },
+    {
+      "name": "Uranus",
+      "description": "Uranus, the ice giant of our solar system, spins on its side, appearing as if it rolls through space. Its pale blue hue comes from traces of methane in its atmosphere, giving it an ethereal beauty. The planet is characterized by a frigid climate and a thick atmosphere of hydrogen and helium. A unique feature is its system of faint rings and an entourage of diverse moons. Uranus remains a distant and enigmatic world, inviting exploration to uncover the secrets held within its icy depths."
+    },
+    {
+      "name": "Neptune",
+      "description": "Neptune, the deep-blue ice giant, is the farthest known planet in our solar system. It boasts the strongest winds in the solar system, with storm systems racing through its dynamic atmosphere. Neptune's vivid coloration is due to the presence of methane, creating a striking appearance. The planet is orbited by a collection of dark and mysterious rings, adding to its allure. Neptune's largest moon, Triton, exhibits unique features such as geysers spouting nitrogen into space. This distant realm of swirling storms and celestial intrigue continues to be a target for exploration and scientific curiosity."
+    },
+    {
+      "name": "Sun",
+      "description":"The Sun, our radiant star at the center of the solar system, is a seething ball of hot, ionized gas that sustains life on Earth. Its powerful magnetic field drives solar flares and coronal mass ejections, influencing space weather. The Sun's energy, generated through nuclear fusion in its core, bathes the planets in light and warmth. A colossal celestial body, it contains more than 99% of the solar system's mass. The Sun's ever-changing surface, marked by sunspots and solar prominences, showcases the dynamic nature of this cosmic powerhouse. Studying the Sun provides insights into the fundamental processes shaping our solar neighborhood."
+    }
+]
+  
+  document.addEventListener("DOMContentLoaded", function () {
+  const planets = document.querySelectorAll(".wrapper > div > a > img");
+  
+  const popupContainer = document.getElementById("popup-container");
+
+  planets.forEach((planet) => {
+    planet.addEventListener("mouseenter", function() {
+      showPopup(planet);
+      popupContainer.style.display = "block";
+    });
+
+    planet.addEventListener("mouseleave", function() {
+      popupContainer.style.display = "none";
+    });
+  });
+
+    function showPopup(event) {
+  
+  const planetName = event.alt;
+  console.log(planetName)
+  const popupContainer = document.getElementById("popup-container");
+
+  const planetDetails = getPlanetDetails(planetName);
+  if (planetDetails) {
+    popupContainer.innerHTML = `
+      <h1>${planetDetails.name}</h1>
+      <br>
+      <p>${planetDetails.description}</p>
+    `;
+    popupContainer.style.display = "block";
+  }
+}
+
+    function hidePopup() {
+      popupContainer.style.display = "none";
+    }
+
+    function getPlanetDetails(planetName) {
+      console.log("Getting details for", planetName); 
+      return planetsData.find((planet) => planet.name === planetName);
+    }
+  });
+</script>
+
+</body>
+</html>

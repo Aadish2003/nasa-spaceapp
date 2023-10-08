@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ planet }}</title>
+    <link rel="stylesheet" href="../static/css/planet.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="info">
+                {% if planet != "Earth" %}
+                    <h5>Average distance: {{ distance }} million km from earth</h5>
+                    <h5>Estimated time of travel: {{time}} years</h5>
+                    <h5>Next nearest to earth on {{nearest}}</h5>
+                {% endif %}
+                <h5>No. of moons: {{moons}}</h5>
+                <h1>{{ planet }} Travel</h1>
+                <p>{{ description }}</p>
+                <button onclick="window.location.href='/{{planet|lower}}/locations';">Get Started</button>
+                <button onclick="window.location.href='/home';">Back to home</button>
+                <h3 style="text-decoration: underline;">Spaceships leaving for {{planet}}</h3>
+                {% if spaceships %}
+                    <ol style="font-size: smaller;">
+                        {% for ship in spaceships %}
+                            <li><b>{{ship[0]}}</b></li>
+                            <p>Leaving date: {{ship[1]}}<br>
+                            Price: ${{ship[2]}}<br>
+                            Capacity: {{ship[3]}} persons</p>
+                        {% endfor %}
+                    </ol>
+                {% else %}
+                    <p>No spaceships currently scheduled to leave</p>
+                {% endif %}
+            </div>
+            <img src="../static/img/information/{{planet}}.jpg">
+        </div>
+        <!-- <img src="../static/img/planets/{{planet}}.png" alt="{{ planet }}"> -->
+    </div>
+</body>
+</html>

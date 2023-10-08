@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Tourism</title>
+    <link rel="stylesheet" href="../static/css/welcome.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div id="video-container">
+        <video autoplay muted loop id="background-video">
+            <source src="../static/vid/space.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="overlay">
+            <h1><span class="highlight">Welcome to Space Tourism</span></h1>
+            <h2>Embark on a journey beyond the stars with us!</h2>
+            <div class="buttons">
+                <a href="/login" class="btn">Login</a>
+                <a href="/register" class="btn">Register</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            var overlay = document.querySelector('.overlay');
+            var scrollPosition = window.scrollY;
+
+            if (scrollPosition > 100) {
+                overlay.classList.add('fade-in');
+            } else {
+                overlay.classList.remove('fade-in');
+            }
+        });
+        var buttons = document.querySelectorAll('.btn');
+
+        buttons.forEach(function(button) {
+            button.addEventListener('mouseover', function() {
+                button.classList.add('pulse');
+            });
+
+            button.addEventListener('mouseout', function() {
+                button.classList.remove('pulse');
+            });
+        });
+        
+    </script>
+</body>
+</html>

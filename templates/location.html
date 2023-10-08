@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ planet }}'s Locations</title>
+    <link rel="stylesheet" href="../static/css/locations.css"/>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mh">Map of {{planet}}</h1>
+        <div class="map-container">
+            <img width="98.8%" style="margin-left:10px;margin-right:10px;border-radius: 50px; z-index: -1;" src="../static/map/{{planet}}.jpg" alt="{{planet}}">
+            {% for coord in hospitals_coordinates %}
+            <div style="margin-left: {{ coord.x }}%; margin-top: {{ coord.y }}%;">
+                <img class="tag" src="../static/tag/hospital.png" alt="Hospital Tag">
+            </div>
+            {% endfor %}
+
+            {% for coord in hotels_coordinates %}
+            <div style="margin-left: {{ coord.x }}%; margin-top: {{ coord.y }}%;">
+                <img class="tag" src="../static/tag/hotel.png" alt="Hotel Tag">
+            </div>
+            {% endfor %}
+
+            {% for coord in tourist_attractions_coordinates %}
+            <div style="margin-left: {{ coord.x }}%; margin-top: {{ coord.y }}%;">
+                <img class="tag" src="../static/tag/tourist.png" alt="Tourist Tag">
+            </div>
+            {% endfor %}
+
+            {% for coord in spaceports_coordinates %}
+            <div style="margin-left: {{ coord.x }}%; margin-top: {{ coord.y }}%;">
+                <img class="tag" src="../static/tag/spaceport.jpg" alt="Spaceport Tag">
+            </div>
+            {% endfor %}
+        </div>
+        <h1 class="mh">Locations on {{planet}}</h1>
+        {% for location in locations %}
+            <div class="content">
+                <h5>Rating: {{ location[3] }} stars</h5>
+                <h5>Price: ${{location[2]}}</h5>
+                <h1>{{ location[0] }}</h1>
+                <div class="display">
+                    <div class="desc">
+                        <p>{{ location[1] }}</p>
+                        <ul>
+                            <li>Climate: {{location[10]}}</li>
+                            <li>Number of hotels: {{ location[4] }}</li>
+                            <li>Number of hospitals: {{location[5]}}</li>
+                            <li>Number of tourist attractions: {{ location[6] }}</li>
+                            <li>Number of spaceports: {{location[7]}}</li>
+                            <li>Activities: {{location[8]}}</li>
+                            <li>Entertainment: {{location[9]}}</li>
+                            <li>Future events: {{location[11]}}</li>
+                        </ul>
+                    </div>
+                    <img src="../static/img/locations/{{location[0]}}.jpg" alt="{{ location[0] }}">
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
